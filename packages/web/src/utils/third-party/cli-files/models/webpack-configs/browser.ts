@@ -7,7 +7,7 @@
  */
 import { LicenseWebpackPlugin } from 'license-webpack-plugin';
 import * as webpack from 'webpack';
-import { WebpackConfigOptions } from '../build-options';
+import { WebpackConfigOptions, BuildOptions } from '../build-options';
 import {
   getSourceMapDevTool,
   isPolyfillsEntry,
@@ -17,9 +17,9 @@ import {
 const SubresourceIntegrityPlugin = require('webpack-subresource-integrity');
 
 export function getBrowserConfig(
-  wco: WebpackConfigOptions
+  buildOptions: BuildOptions,
+  supportES2015: boolean
 ): webpack.Configuration {
-  const { buildOptions } = wco;
   const extraPlugins = [];
 
   let isEval = false;
@@ -86,7 +86,7 @@ export function getBrowserConfig(
     devtool: isEval ? 'eval' : false,
     resolve: {
       mainFields: [
-        ...(wco.supportES2015 ? ['es2015'] : []),
+        ...(supportES2015 ? ['es2015'] : []),
         'browser',
         'module',
         'main',

@@ -14,7 +14,7 @@ import {
   RemoveHashPlugin,
   SuppressExtractedTextChunksWebpackPlugin,
 } from '../../plugins/webpack';
-import { WebpackConfigOptions } from '../build-options';
+import { BuildOptions, WebpackConfigOptions } from '../build-options';
 import { getOutputHashFormat, normalizeExtraEntryPoints } from './utils';
 
 const autoprefixer = require('autoprefixer');
@@ -35,8 +35,7 @@ const postcssImports = require('postcss-import');
  * require('sass-loader')
  */
 // tslint:disable-next-line:no-big-function
-export function getStylesConfig(wco: WebpackConfigOptions) {
-  const { root, buildOptions } = wco;
+export function getStylesConfig(root: string, buildOptions: BuildOptions) {
   const entryPoints: { [key: string]: string[] } = {};
   const globalStylePaths: string[] = [];
   const extraPlugins = [];

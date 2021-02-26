@@ -1,7 +1,15 @@
 const rootMain = require('<%= offsetFromRoot %>../.storybook/main');
 
-// Use the following syntax to add addons!
-// rootMain.addons.push('');
-rootMain.stories.push(...['../src/<%= projectType %>/**/*.stories.mdx', '../src/<%= projectType %>/**/*.stories.@(js|jsx|ts|tsx)'])
-
-module.exports = rootMain;
+module.exports = {
+  ...rootMain,
+  stories: [
+    ...rootMain.stories,
+    '../src/<%= projectType %>/**/*.stories.mdx', 
+    '../src/<%= projectType %>/**/*.stories.@(js|jsx|ts|tsx)'
+  ],
+  addons: [...rootMain.addons, '@nrwl/react/plugins/storybook'],
+  // webpackFinal: async (config, { configType }) => {
+  //   // extend with your custom config
+  //   return config;
+  // },
+};
